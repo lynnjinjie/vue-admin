@@ -1,0 +1,15 @@
+#app {
+  .main-container {
+    min-height: 100%;
+    margin-left: $sidebarWidth;
+    position: relative;
+  }
+  .sidebar-container {
+    width: $sidebarWidth;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+  }
+}
