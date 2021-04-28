@@ -1,15 +1,16 @@
 <template>
-<div class="app-wrapper"> 
+<div :class="classObj" class="app-wrapper"> 
   <Sidebar class="sidebar-container" />
   <div class="main-container">
     <div class="fixed-header">
-      <Navbar></Navbar>
+      <navbar></navbar>
     </div>
-    <AppMain></AppMain>
+    <app-main></app-main>
   </div>
 </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { Sidebar, Navbar, AppMain } from './components'
 export default {
   name: 'Layout',
@@ -17,6 +18,17 @@ export default {
     Sidebar,
     Navbar,
     AppMain
+  },
+  computed: {
+    ...mapGetters([
+      'sidebar'
+    ]),
+    classObj() {
+      return {
+        hideSidebar: !this.sidebar.opened,
+        openSidebar: this.sidebar.opened
+      }
+    }
   }
 }
 </script>
@@ -30,6 +42,10 @@ export default {
     position: fixed;
     top: 0;
     right: 0;
-    width: calc(100% - #{$sidebarWidth});
+    width: calc(100% - #{$sideBarWidth});
+    transition: width 0.28s;
+  }
+  .hideSidebar .fixed-header {
+    width: calc(100% - 54px);
   }
 </style>
