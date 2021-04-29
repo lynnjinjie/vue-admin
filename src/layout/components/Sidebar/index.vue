@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-menu
+    :default-active="activeMenu"
       :background-color="variables.menuBg"
       :text-color="variables.menuText"
       :active-text-color="variables.menuActiveText"
@@ -31,6 +32,10 @@ export default {
     },
     isCollapse() {
       return !this.sidebar.opened
+    },
+    activeMenu() {
+      const { path } = this.$route
+      return path
     }
   },
   mounted() {

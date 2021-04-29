@@ -13,6 +13,11 @@ import router from './router'
 import store from './store'
 //icons
 import '@/icons'
+// 路由权限
+import './permission.js'
+
+// 多语言
+import i18n from '@/lang'
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
@@ -20,5 +25,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  i18n,
   render: (h) => h(App),
 }).$mount('#app')

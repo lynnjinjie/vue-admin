@@ -4,7 +4,19 @@ import Layout from '@/layout'
 
 Vue.use(VueRouter)
 
+// 解决重复点击路由报错的BUG
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err)
+}
+
 const routes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/index'),
+    hidden: true,
+  },
   {
     path: '/',
     component: Layout,
@@ -21,6 +33,7 @@ const routes = [
   {
     path: '/example',
     name: 'Example',
+    redirect: '/example/table',
     component: Layout,
     meta: { title: 'Example', icon: 'example' },
     children: [
@@ -47,7 +60,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
+  scrollBehavior: () => ({ y: 0 }),
   base: process.env.BASE_URL,
   routes,
 })

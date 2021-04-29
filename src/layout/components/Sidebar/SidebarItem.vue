@@ -1,9 +1,9 @@
 <template>
-<div>
+<div v-if="!item.hidden">
   <template v-if="hasOneShowingChild(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren)">
     <app-link :to="reslovePath(onlyOneChild.path)">
       <el-menu-item :index="reslovePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown': !isNest}">
-        <item :icon="onlyOneChild.meta.icon || item.meta.icon" :title="onlyOneChild.meta.title"></item>
+        <item :icon="onlyOneChild.meta.icon || (item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title"></item>
       </el-menu-item>
     </app-link>
   </template>

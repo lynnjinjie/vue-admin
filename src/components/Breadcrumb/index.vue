@@ -1,7 +1,8 @@
 <template>
   <el-breadcrumb class="app-breadcrumb" separator="/">
-    <el-breadcrumb-item v-for="level in levelList" :key="level.path">
-      <a @click="handleClick(level)">{{ level.meta.title }}</a>
+    <el-breadcrumb-item v-for="(level, i) in levelList" :key="level.path">
+      <span v-if="level.redirect == 'noRedirect' || i == levelList.length - 1" class="no-redirect">{{level.meta.title}}</span>
+      <a v-else  @click.prevent="handleClick(level)">{{ level.meta.title }}</a>
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
@@ -29,7 +30,7 @@ export default {
     handleClick(level) {
       const { redirect, path } = level
       if (redirect) {
-        this.$router.psu(redirect)
+        this.$router.push(redirect)
         return
       }
       this.$router.push(path)
@@ -43,5 +44,8 @@ export default {
   height: 50px;
   line-height: 50px;
   padding-left: 8px;
+}
+.no-redirect {
+  cursor: text;
 }
 </style>
