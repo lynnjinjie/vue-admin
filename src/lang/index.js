@@ -17,7 +17,7 @@ const messages = {
 }
 // console.log(Cookies.get('lang'))
 export function getLanguage() {
-  const chooseLanguage = Cookies.get('lang')
+  const chooseLanguage = Cookies.get('language')
   if (chooseLanguage) return chooseLanguage
   return 'en'
 }

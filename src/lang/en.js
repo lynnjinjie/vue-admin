@@ -1,6 +1,9 @@
 export default {
   route: {
-    dashboard: 'Dashboard',
-    example: 'Example',
+    Dashboard: 'Dashboard',
+    Example: 'Example',
+    Form: 'form',
+    Table: 'table',
+    Tree: 'tree',
   },
 }

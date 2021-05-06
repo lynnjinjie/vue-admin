@@ -1,6 +1,6 @@
 <template>
 <div>
-  {{ $t('route.dashboard') }}
+  {{ $t('route.Dashboard') }}
 </div>
 </template>
 <script>

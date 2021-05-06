@@ -1,17 +1,34 @@
 // 路由权限控制
 import router from './router'
-// import store from './store'
+import store from './store'
 import { getToken } from '@/utils/auth'
 
-router.beforeEach((to, from, next) => {
+const whiteList = ['/login']
+
+router.beforeEach(async (to, from, next) => {
   const hasToken = getToken()
   if (hasToken) {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
-      next()
+      const hasUserName = store.getters.name
+      if (hasUserName) {
+        next()
+      } else {
+        try {
+          await store.dispatch('user/getInfo')
+          next()
+        } catch (error) {
+          await store.dispatch('user/getInfo')
+          next({ path: `/login?redirect=${to.path}` })
+        }
+      }
     }
   } else {
-    next({ path: `/login?redirect=${to.path}` })
+    if (whiteList.includes(to.path)) {
+      next()
+    } else {
+      next({ path: `/login?redirect=${to.path}` })
+    }
   }
 })

@@ -1,6 +1,9 @@
 export default {
   route: {
-    dashboard: '仪表盘',
-    example: '例子',
+    Dashboard: '仪表盘',
+    Example: '例子',
+    Form: '表单',
+    Table: '表格',
+    Tree: '树',
   },
 }

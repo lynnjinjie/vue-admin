@@ -1,15 +1,15 @@
 <template>
 <div v-if="!item.hidden">
   <template v-if="hasOneShowingChild(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren)">
-    <app-link :to="reslovePath(onlyOneChild.path)">
+    <app-link v-if="onlyOneChild.meta" :to="reslovePath(onlyOneChild.path)">
       <el-menu-item :index="reslovePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown': !isNest}">
-        <item :icon="onlyOneChild.meta.icon || (item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title"></item>
+        <item :icon="onlyOneChild.meta.icon || (item.meta&&item.meta.icon)" :title="generateTitle(onlyOneChild.meta.title)"></item>
       </el-menu-item>
     </app-link>
   </template>
   <el-submenu v-else :index="reslovePath(item.path)" popper-append-to-body>
     <template slot="title">
-      <item :icon="item.meta.icon" :title="item.meta.title"></item>
+      <item v-if="item.meta" :icon="item.meta.icon" :title="generateTitle(item.meta.title)"></item>
     </template>
     <sidebar-item v-for="child in item.children" :key="child.path" :item="child" :is-nest="true" :base-path="reslovePath(child.path)"></sidebar-item>
   </el-submenu>
@@ -19,6 +19,8 @@
 import path from 'path'
 import AppLink from './Link'
 import Item from './Item'
+// 处理sidebar的多语言
+import { generateTitle } from '@/utils/i18n'
 export default {
   name: 'SidebarItem',
   components: { AppLink, Item },
@@ -37,8 +39,8 @@ export default {
     }
   },
   data() {
+    this.onlyOneChild = null
     return {
-      onlyOneChild: null
     }
   },
   methods: {
@@ -63,7 +65,8 @@ export default {
     },
     reslovePath(routePath) {
       return path.resolve(this.basePath, routePath)
-    }
+    },
+    generateTitle
   }
 }
 </script>

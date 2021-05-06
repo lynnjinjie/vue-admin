@@ -6,7 +6,7 @@
       <lang-select></lang-select>
       <el-dropdown trigger="click">
         <span>
-          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+          <el-avatar :src="avatar"></el-avatar>
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -30,14 +30,16 @@ export default {
   components: { Hamburger, Breadcrumb, LangSelect },
   computed: {
     ...mapGetters([
-      'sidebar'
+      'sidebar',
+      'avatar'
     ])
   },
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },
-    logout() {
+    async logout() {
+      await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }
