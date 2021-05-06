@@ -1,9 +1,10 @@
 <template>
 <div :class="classObj" class="app-wrapper"> 
   <Sidebar class="sidebar-container" />
-  <div class="main-container">
+  <div class="main-container hasTagsView">
     <div class="fixed-header">
       <navbar></navbar>
+      <tags-view></tags-view>
     </div>
     <app-main></app-main>
   </div>
@@ -11,13 +12,14 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { Sidebar, Navbar, AppMain } from './components'
+import { Sidebar, Navbar, AppMain, TagsView } from './components'
 export default {
   name: 'Layout',
   components: {
     Sidebar,
     Navbar,
-    AppMain
+    AppMain,
+    TagsView
   },
   computed: {
     ...mapGetters([

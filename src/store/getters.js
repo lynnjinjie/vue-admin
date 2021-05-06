@@ -3,4 +3,5 @@ export default {
   language: (state) => state.app.language,
   name: (state) => state.user.name,
   avatar: (state) => state.user.avatar,
+  visitedViews: (state) => state.tagsView.visitedViews,
 }

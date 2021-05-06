@@ -12,11 +12,19 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
   .app-main {
     min-height: calc(100vh - 50px);
     width: 100%;
     overflow: hidden;
     padding-top: 50px;
+  }
+  .hasTagsView {
+    .app-main {
+      min-height: 100vh;
+    }
+    .fixed-header+.app-main {
+      padding-top: 84px;
+    }
   }
 </style>
