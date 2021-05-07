@@ -12,6 +12,17 @@ VueRouter.prototype.push = function push(location) {
 
 const routes = [
   {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path(.*)',
+        component: () => import('@/views/redirect/index'),
+      },
+    ],
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/login/index'),

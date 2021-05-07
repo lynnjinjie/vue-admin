@@ -19,6 +19,12 @@ const mutations = {
       }
     }
   },
+  DEL_OTHERS_VISITED_VIEW: (state, view) => {
+    state.visitedViews = state.visitedViews.filter((v) => v.path === view.path)
+  },
+  DEL_ALL_VIEW: (state) => {
+    state.visitedViews = []
+  },
 }
 
 const actions = {
@@ -40,6 +46,30 @@ const actions = {
     return new Promise((resolve) => {
       commit('DEL_VISITED_VIEW', view)
       resolve([...state.visitedViews])
+    })
+  },
+  delOthersViews({ dispatch, state }, view) {
+    return new Promise((resolve) => {
+      dispatch('delOthersVisitedViews', view)
+      resolve({
+        visitedViews: [...state.visitedViews],
+      })
+    })
+  },
+  delOthersVisitedViews({ commit, state }, view) {
+    return new Promise((resolve) => {
+      commit('DEL_OTHERS_VISITED_VIEW', view)
+      resolve({
+        visitedViews: [...state.visitedViews],
+      })
+    })
+  },
+  delAllViews({ commit }) {
+    return new Promise((resolve) => {
+      commit('DEL_ALL_VIEW')
+      resolve({
+        visitedViews: [...state.visitedViews],
+      })
     })
   },
 }

@@ -14,10 +14,10 @@
       </router-link>
     </scroll-pane>
     <ul v-show="visible" :style="{left: left+'px',top: top+'px'}" class="contextmenu">
-      <li>Refresh</li>
+      <li @click="refreshedSelectedTag(selectedTag)">Refresh</li>
       <li @click="closeSelectedTag(selectedTag)">Close</li>
-      <li>Close Others</li>
-      <li>Close All</li>
+      <li @click="closeOthersTags(selectedTag)">Close Others</li>
+      <li @click="closeAllTags">Close All</li>
     </ul>
   </div>
 </template>
@@ -104,6 +104,24 @@ export default {
     },
     closeMenu() {
       this.visible = false
+    },
+    refreshedSelectedTag(view) {
+      this.$store.dispatch('tagsView/delVisitedView', view).then(() => {
+        this.$nextTick(() => {
+          this.$router.replace({ path: '/redirect' + view.fullPath })
+        })
+      })
+    },
+    closeOthersTags(view) {
+      this.$router.push(this.selectedTag)
+      this.$store.dispatch('tagsView/delOthersViews', view)
+    },
+    closeAllTags() {
+      this.$store.dispatch('tagsView/delAllViews').then(({ visitedViews }) => {
+        if (visitedViews.length === 0) {
+          this.$router.push('/')
+        }
+      })
     }
   }
 }
