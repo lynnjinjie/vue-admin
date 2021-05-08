@@ -17,14 +17,23 @@ import '@/icons'
 import './permission.js'
 
 // 多语言
-import i18n from '@/lang'
+import i18n, { getLanguage } from '@/lang'
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
+
+import { getLang } from '@/api/lang'
 
 new Vue({
   router,
   store,
   i18n,
   render: (h) => h(App),
+  created() {
+    const lang = getLanguage()
+    getLang(lang).then((res) => {
+      this.$i18n.setLocaleMessage(lang, res.message)
+      this.$i18n.locale = lang
+    })
+  },
 }).$mount('#app')

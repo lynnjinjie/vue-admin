@@ -7,6 +7,7 @@ const state = {
       : true,
   },
   language: getLanguage(),
+  loadedLanguages: ['zh'],
 }
 
 const mutations = {
@@ -21,6 +22,9 @@ const mutations = {
   SET_LANGUAGE: (state, lang) => {
     state.language = lang
     Cookies.set('language', lang)
+    if (!state.loadedLanguages.includes(lang)) {
+      state.loadedLanguages.push(lang)
+    }
   },
 }
 
